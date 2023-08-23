@@ -1,0 +1,92 @@
+## Como escolher uma boa imagem
+
+Devemos nos atentar a 2 fatores na hora de escolher uma boa imagem.
+
+1- Verificar se no https://hub.docker.com/ a imagem consta com a tag de "Docker Official Images"
+
+2- Também não se esquecer de verificar a quantidade de downloads.
+
+*Para começar com nossos testes em nosso playgroud é necessário entender um pouco sobre os comandos básicos.* 
+
+Para entender um pouco mais sobre a fase inicial, vou utilizar uma imagem Ubuntu para realizar testes.
+
+### Compreendendo sobre as criações de imagens
+
+Para começar com os testes vamos realizar o pull do container no Docker Hub com uma imagem do Ubuntu, para isso vamos utilizar o seguinte comando: 
+
+```bash
+docker run ubuntu 
+```
+
+Após realizar essa fase a docker enguine só ira criar o container, porém como não solicitamos nenhum comando ele só roda o container e desliga. 
+
+Você pode realizar um teste com o comando: 
+
+```bash
+docker run ubuntu echo "Olá Mundo!"
+```
+
+Agora no seu terminar voltou retornou a mensagem Olá mundo!
+
+É possível interagir dentro do terminal do linux utilizando o comando: 
+
+```bash
+docker run -it ubuntu 
+root@5923ce0d1bfe:/#
+```
+
+Para realizar uma operação de criação, edição e visualização de um arquivo utilizando o terminal do Ubuntu dentro do Docker: 
+
+```bash
+docker run -it ubuntu 
+touch ola-mundo.txt
+echo "Teste do container" > ola-mundo.txt
+cat ola-mundo.txt
+```
+
+Após sair do container é possível solicitar para ele realizar comandos, como entrar novamente no terminal. 
+
+Com ele rodando utilize o comando: 
+
+```bash
+## Vamos starta o container 
+docker exec -it NOME_CONTAINER bash
+```
+
+Assim é possível entrar no container e realizar todas as alterações desejadas. 
+
+> Com todos esses testes foram criados diversos containers em sua máquina, para remover é necessário rodar o comando rm, conforme abaixo:
+> 
+
+```bash
+docker rm IDENTIFICACAO_CONTAINER
+```
+
+---
+
+> Removendo um container que está ativo
+> 
+
+```bash
+docker rm -f (force) IDENTIFICAÇÃO_CONTAINER
+```
+
+> Como ver logs dos containers
+> 
+
+```bash
+*Para ver os logs*
+docker logs IDENTIFICAÇÃO_CONTAINER
+
+*Para ver os logs em tempo real*
+docker logs -f (follow) IDENTIFICAÇÃO_CONTAINER
+```
+
+> Com o comando prune é possível eliminar todos os containers inativos
+> 
+
+```bash
+docker container prune 
+```
+
+remove todos os containers que estão inativos.
