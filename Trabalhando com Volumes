@@ -1,0 +1,58 @@
+Os volumes vem para suprir a necessidade de armazenar informações em containers. 
+
+Primeiramente, é interessante entender que os containers são voláteis, sendo assim naturalmente vamos destruir e criar novos containers.
+
+Porém rapidamente podemos encontrar um problema.. Se toda vez destruirmos nossos containers as informações adicionadas a ele serão perdidas, sendo assim vamos ter mais retrabalho. 
+
+!https://i.pinimg.com/originals/a4/4c/b7/a44cb7324810ce345d14ff00c5d51fdb.jpg
+
+Contudo não precisamos nos desanimar podemos 'linkar' repositórios da sua máquina para o container. 
+
+Para fazer isso podemos utilizar um recurso chamado volume, com ele é possível de ligar um repositório do seu sistema a repositório dentro do container.
+
+
+
+> Existem 3 tipos de volumes no Docker:
+- Anônimo
+  #Anonimo: Quando apnas criamos um volume e não definimos nome nenhum.
+  docker run -d -p 80:80 --name ubuntu_container --rm -v /data ubuntu:18.04
+
+
+- Nomeado
+  #Nomeado: Podemos fazer de duas maneiras, mas ambas podemos nomear nossos volumes
+  docker run -d -p 80:80 --name ubuntu_container -v ubuntuvolume:/var/www/--rm ubuntu:18.04
+  docker create volume ubuntuteste
+
+- Bind Mount
+  #Bind Mount
+  O bind mount realiza a montagem de um arquivo/diretório diretamente do host para o container. Por isso, a montagem é referenciada pelo seu caminho completo no hospedeiro.
+  Além do que, algumas questões de segurança devem ser pensadas, já que um container poderá ter acesso a arquivos e diretórios sensíveis na máquina hospedeira.
+
+
+
+> Para ficar mais claro vamos seguir com exemplos práticos abaixo:
+> 
+- Para realizar os testes vou usar uma imagem ubuntu.
+
+Primeiramente vamos abrir nosso terminal e rodar os comandos abaixo:
+
+```jsx
+docker run -d ubuntu 
+```
+
+*Feito isso o ambiente irá retornar o número de hash.*
+
+Agora vamos supor o seguinte cenário, você precisa manter algumas informações em seu container, porém quando for destrui-lo vc perdera tudo.. sendo assim podemos utilizar o comando -v para criar um volume diretamente para sua máquina; 
+
+```jsx
+docker run -it -v "C:\Users\gustavo.araujo\desktop:/var/www" ubuntu:18.04
+```
+
+Após rodar esse comando podemos testar o volume criado, vamos criar um arquivo para verificar se ele é aparece nos 2 repositórios. Inserimos o código abaixo: 
+
+```bash
+cd /var/www
+touch hello_world.txt
+```
+
+Com isso criamos o arquivo Hello World, podemos verificar que em nosso repositório o arquivo foi criado normalmente. Sendo assim com um container mapeado não precisamos nos preocupar com os dados que vamos utilizar.
